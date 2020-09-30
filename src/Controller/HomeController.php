@@ -3,6 +3,7 @@ namespace App\Controller;
 
 Use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use App\Service\DataBaseServices;
 
 class HomeController
 {
@@ -11,14 +12,23 @@ class HomeController
      */
     private $twig;
 
-    public function __construct(Environment $twig)
+    /**
+     * @var DataBaseServices
+     */
+    private $db;
+
+    public function __construct(Environment $twig, DataBaseServices $db)
     {
-        $this->twig=$twig;
+        $this->twig = $twig;
+        $this->db = $db;
     }
 
     public function index()
     {
-        $content = $this->twig->render("HomePage/home.html.twig");
+        $content = $this->twig->render("HomePage/home.html.twig",
+            [
+                'teams' => $this->db->getAllTeams(),
+            ]);
         return new Response($content);
     }
 
