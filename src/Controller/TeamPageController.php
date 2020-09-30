@@ -1,17 +1,12 @@
 <?php
+
 namespace App\Controller;
-use App\Entity\Articles;
-use App\Form\Form;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+
 Use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class TeamPageController
 {
-
-
     /**
      * @var Environment
      */
