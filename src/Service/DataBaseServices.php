@@ -28,12 +28,29 @@ class DataBaseServices
         $teams = $this->em->getRepository(Team::class);
         return $teams->findAll();
     }
-
+  
+    public function getTeamProjectsId(int $id){
+        $repo =$this->em->getRepository(Team::class);
+        return $repo->find($id);
+    }
+  
     public function insertATeam($name)
     {
         $team = new Team;
         $team->setName($name);
         $this->em->persist($team);
+        $this->em->flush();
+    }
+
+    public function deleteATeam($id)
+    {
+        $teams = $this->em->getRepository(Team::class);
+
+        /**
+         * @var TeamRepository $teams
+         */
+        $team = $teams->find($id);
+        $this->em->remove($team);
         $this->em->flush();
     }
 }
