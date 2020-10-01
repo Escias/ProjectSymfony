@@ -41,4 +41,16 @@ class DataBaseServices
         $this->em->persist($team);
         $this->em->flush();
     }
+
+    public function deleteATeam($id)
+    {
+        $teams = $this->em->getRepository(Team::class);
+
+        /**
+         * @var TeamRepository $teams
+         */
+        $team = $teams->find($id);
+        $this->em->remove($team);
+        $this->em->flush();
+    }
 }
