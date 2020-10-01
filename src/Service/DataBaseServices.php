@@ -28,7 +28,12 @@ class DataBaseServices
         $teams = $this->em->getRepository(Team::class);
         return $teams->findAll();
     }
-
+  
+    public function getTeamProjectsId(int $id){
+        $repo =$this->em->getRepository(Team::class);
+        return $repo->find($id);
+    }
+  
     public function insertATeam($name)
     {
         $team = new Team;
