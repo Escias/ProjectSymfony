@@ -37,6 +37,7 @@ class TeamPageController
         $content = $this->twig->render("TeamPage/TeamDetails.html.twig",
         [
             "teamProjects"=>$projectList,
+            "id"=>$id,
         ]);
         return new Response($content);
     }
