@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 Use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use App\Service\DataBaseServices;
 
@@ -23,6 +24,9 @@ class HomeController
         $this->db = $db;
     }
 
+    /**
+     * @Route("/")
+     */
     public function index()
     {
         $content = $this->twig->render("HomePage/home.html.twig",
