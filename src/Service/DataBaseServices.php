@@ -3,7 +3,6 @@
 
 namespace App\Service;
 
-
 use App\Entity\Team;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +37,20 @@ class DataBaseServices
     {
         $team = new Team;
         $team->setName($name);
+        $this->em->persist($team);
+        $this->em->flush();
+    }
+
+    public function insertProjectToTeam($projectid, $teamid){
+        $teams = $this->em->getRepository(Team::class);
+        $team = $teams->find($teamid);
+        $list = $team->getListProject();
+        if ($list){
+            array_push($list, $projectid);
+        }else{
+            $list = [$projectid];
+        }
+        $team->setListProject($list);
         $this->em->persist($team);
         $this->em->flush();
     }

@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Team;
+use App\Form\TeamAddForm;
+use App\Service\ApiServices;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 Use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use App\Service\DataBaseServices;
+use Symfony\Component\HttpFoundation\Request;
 
-class AdminPageController{
+class AdminPageController extends AbstractController {
 
     /**
      * @var Environment
@@ -18,61 +22,44 @@ class AdminPageController{
      * @var DataBaseServices
      */
     private $db;
+    /**
+     * @var ApiServices
+     */
+    private $api;
 
     /**
      * @Route("/admin")
      */
-    public function index()
+    public function index(Request $request)
     {
-        $titles = [
-            'team' => 'Team',
-            'project' => 'Project',
-            'member' => 'Member',
-        ];
-        $contenu = [
-            [
-                'team' => '1',
-                'project' => [
-                    'Project 1',
-                    'Project 3',
-                ],
-                'member' => [
-                    'Anis',
-                    'Eliott',
-                ],
-            ],
-            [
-                'team' => '1',
-                'project' => [
-                    'Project 1',
-                    'Project 2',
-                ],
-                'member' => [
-                    'Axel',
-                    'Jimmy',
-                ],
-            ]
-        ];
+        $teams = $this->db->getAllTeams();
 
-        $team = $this->db->em->getRepository(Team::class);
-        $team1 = $team->find(2);
-        $team1->setListProject([1,2]);
-
-        $this->db->em->persist($team1);
-        $this->db->em->flush();
-
+        $project = $this->api->getAllProjects();
+        $item = [];
+        foreach ($project as $value){
+            array_push($item, $value["name"]);
+        }
 
         $content = $this->twig->render("AdminPage/admin.html.twig",
             [
-                'titles'=>$titles,
-                'entities'=>$contenu,
+                "teams" => $teams,
+                "projects" => $project
             ]);
         return new Response($content);
     }
 
-    public function __construct(Environment $twig, DataBaseServices $db)
+    /**
+     * @Route("/addProjectToTeam")
+     */
+    public function addProjectToTeam(Request $request){
+        $this->db->insertProjectToTeam($request->get("project"), $request->get("team"));
+        return $this->redirectToRoute('app_home_index');
+    }
+
+    public function __construct(Environment $twig, DataBaseServices $db, ApiServices $api)
     {
         $this->twig = $twig;
         $this->db = $db;
+        $this->api = $api;
     }
 }
