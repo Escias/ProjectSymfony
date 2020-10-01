@@ -2,14 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Team;
 use App\Service\ApiServices;
 use App\Service\DataBaseServices;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TeamAddForm extends AbstractType
 {
@@ -21,24 +19,38 @@ class TeamAddForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /**$teams = $this->db->getAllTeams();
+        var_dump($teams[0]);
+        $boo = [];
+        foreach ($teams as $value){
+            array_push($boo, $value);
+        }
+        $boo = array_flip($boo);*/
+
         $project = $this->api->getAllProjects();
+        $item = [];
+        foreach ($project as $value){
+            array_push($item, $value);
+        }
+        //$item = array_flip($item);
+
         $builder
             ->add('Team', ChoiceType::class, [
                 'choices'  => [
-                    'team'=>'1',
-                    'boo'=>'2',
+                    'jjje'=>'1',
                 ],
             ])
             ->add('Project', ChoiceType::class, [
                 'choices'  => [
-                    $project,
+                    $item,
                 ],
             ])
         ;
     }
 
-    public function __construct(ApiServices $api)
+    public function __construct(ApiServices $api, DataBaseServices $db)
     {
         $this->api = $api;
+        $this->db = $db;
     }
 }
