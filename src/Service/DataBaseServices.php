@@ -13,7 +13,7 @@ class DataBaseServices
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    public $em;
 
     public function __construct( EntityManagerInterface $em)
     {
