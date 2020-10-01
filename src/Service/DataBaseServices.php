@@ -46,9 +46,9 @@ class DataBaseServices
         $team = $teams->find($teamid);
         $list = $team->getListProject();
         if ($list){
-            array_push($list, $projectid);
+            array_push($list, (int)$projectid);
         }else{
-            $list = [$projectid];
+            $list = [(int)$projectid];
         }
         $team->setListProject($list);
         $this->em->persist($team);
