@@ -20,7 +20,7 @@ class AdminPageController{
     private $db;
 
     /**
-     * @Route("/")
+     * @Route("/admin")
      */
     public function index()
     {
