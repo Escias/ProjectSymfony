@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Team;
 Use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use App\Service\DataBaseServices;
