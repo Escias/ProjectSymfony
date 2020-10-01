@@ -47,7 +47,7 @@ class HomeController extends AbstractController
             ]);
         return new Response($content);
     }
-
+  
     /**
      * @Route("/team/delete")
      */

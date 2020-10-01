@@ -11,7 +11,7 @@
 <h1>Team</h1>
 <ul>
     {% for project in teamProjects %}
-        <li>{{ project.name }}</li>
+        <li><a href="/project/{{ id }}">{{ project.name }}</a></li>
     {%  endfor %}
 </ul>
 </body>
