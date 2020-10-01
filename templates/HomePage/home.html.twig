@@ -10,11 +10,12 @@
         <li>
             <a href="/team/{{ team.id }}">{{ team.name }}</a>
             <p>Number of projects: {{ team.listProject|length }}</p>
+            <a href="/team/delete?id={{ team.id }}">Supprimer</a>
         </li>
     {%  endfor %}
 </ul>
 
-{{ form(form) }}
+{{ form(formAdd) }}
 </body>
 </html>
 
