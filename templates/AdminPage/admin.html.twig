@@ -5,32 +5,19 @@
     <title>Admin Page</title>
 </head>
 <body>
-{{ form(form) }}
-<button type="submit">Add</button>
-
-
-
-<p>_________________</p>
-<tr class="tile">
-    {% for title in titles %}
-    <td class="tile">{{ title }}</td>
+<form action="/addProjectToTeam" method="get">
+<select name="team">
+    {% for team in teams %}
+    <option value="{{ team.id }}">{{ team.name }}</option>
     {% endfor %}
-</tr><br/>
-<tr>
-    {% for item in entities %}
-    <td>{{ item.team }}</td>
-    <td>
-        {% for pro in item.project %}
-            <span>{{ pro }}</span>
-        {% endfor %}
-    </td>
-    <td>
-        {% for mem in item.member %}
-            <span>{{ mem }}</span>
-        {% endfor %}
-    </td>
+</select>
+<select name="project">
+    {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
     {% endfor %}
-</tr>
+</select><br/>
+<button type="submit">Add Project</button>
+</form>
 </body>
 </html>
 

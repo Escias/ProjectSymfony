@@ -7,9 +7,15 @@
 <h1>Home Page</h1>
 <ul>
     {% for team in teams %}
-        <li>{{ team.name }}</li>
+        <li>
+            <a href="/team/{{ team.id }}">{{ team.name }}</a>
+            <p>Number of projects: {{ team.listProject|length }}</p>
+            <a href="/team/delete?id={{ team.id }}">Supprimer</a>
+        </li>
     {%  endfor %}
 </ul>
+
+{{ form(formAdd) }}
 </body>
 </html>
 
