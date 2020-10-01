@@ -28,4 +28,12 @@ class DataBaseServices
         $teams = $this->em->getRepository(Team::class);
         return $teams->findAll();
     }
+
+    public function insertATeam($name)
+    {
+        $team = new Team;
+        $team->setName($name);
+        $this->em->persist($team);
+        $this->em->flush();
+    }
 }
