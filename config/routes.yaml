@@ -1,3 +1,6 @@
+admin:
+    path: /admin
+    controller: App\Controller\AdminPageController::index
 index:
     path: /Team
     controller: App\Controller\TeamPageController::index
