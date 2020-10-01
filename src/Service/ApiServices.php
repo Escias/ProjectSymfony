@@ -4,6 +4,8 @@
 namespace App\Service;
 
 use Gitlab\Client;
+use phpDocumentor\Reflection\Project;
+use phpDocumentor\Reflection\Types\Integer;
 
 class ApiServices
 {
@@ -19,6 +21,10 @@ class ApiServices
     public function getAllProjects()
     {
         return $this->client->projects()->all(['owned' => true]);
+    }
+
+    public function getProjectById(int $id){
+        return $this->client->projects()->show($id);
     }
 
     public function getAllMergeRequestsByProjectId(int $id)

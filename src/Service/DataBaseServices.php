@@ -13,7 +13,7 @@ class DataBaseServices
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    public $em;
 
     public function __construct( EntityManagerInterface $em)
     {
@@ -27,5 +27,10 @@ class DataBaseServices
          */
         $teams = $this->em->getRepository(Team::class);
         return $teams->findAll();
+    }
+
+    public function getTeamProjectsId(int $id){
+        $repo =$this->em->getRepository(Team::class);
+        return $repo->find($id);
     }
 }

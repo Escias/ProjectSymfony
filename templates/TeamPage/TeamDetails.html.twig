@@ -9,6 +9,11 @@
 </head>
 <body>
 <h1>Team</h1>
+<ul>
+    {% for project in teamProjects %}
+        <li>{{ project.name }}</li>
+    {%  endfor %}
+</ul>
 </body>
 </html>
 
