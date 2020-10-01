@@ -1,6 +1,0 @@
-index:
-    path: /Team
-    controller: App\Controller\TeamPageController::index
-Home:
-    path: /
-    controller: App\Controller\HomeController::index

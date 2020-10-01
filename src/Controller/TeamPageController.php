@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 Use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
 class TeamPageController
@@ -13,6 +14,9 @@ class TeamPageController
     private $twig;
 
 
+    /**
+     * @Route("/team/{id}")
+     */
     public function index()
     {
         $content = $this->twig->render("TeamPage/TeamDetails.html.twig");
