@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Team;
 Use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use App\Service\DataBaseServices;
 
@@ -18,6 +19,9 @@ class AdminPageController{
      */
     private $db;
 
+    /**
+     * @Route("/")
+     */
     public function index()
     {
         $titles = [
