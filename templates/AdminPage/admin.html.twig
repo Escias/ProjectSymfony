@@ -6,18 +6,33 @@
 </head>
 <body>
 <form action="/addProjectToTeam" method="get">
-<select name="team">
-    {% for team in teams %}
-    <option value="{{ team.id }}">{{ team.name }}</option>
-    {% endfor %}
-</select>
-<select name="project">
-    {% for project in projects %}
-        <option value="{{ project.id }}">{{ project.name }}</option>
-    {% endfor %}
-</select><br/>
-<button type="submit">Add Project</button>
+    <select name="team">
+        {% for team in teams %}
+            <option value="{{ team.id }}">{{ team.name }}</option>
+        {% endfor %}
+    </select>
+    <select name="project">
+        {% for project in projects %}
+            <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+    </select><br/>
+    <button type="submit">Add Project</button>
 </form>
+<p>___________________</p>
+<td>
+    {% for title in titles %}
+        <tr>{{ title }}</tr>
+    {% endfor %}
+</td><br/>
+<td>
+    {% for listTeam in listTeams %}
+        <tr>{{ listTeam.name }}
+        {% for projectTeam in projectTeams %}
+            <span>{{ projectTeam }}</span><br/>
+        {% endfor %}
+        </tr><br/>
+    {% endfor %}
+</td>
 </body>
 </html>
 

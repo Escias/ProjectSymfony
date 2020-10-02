@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Team;
 use App\Form\TeamAddForm;
 use App\Service\ApiServices;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 Use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,13 +27,27 @@ class AdminPageController extends AbstractController {
      * @var ApiServices
      */
     private $api;
+    private $em;
 
     /**
      * @Route("/admin")
      */
     public function index(Request $request)
     {
+        $titles = [
+          'Team',
+          'Project(s)',
+        ];
+
         $teams = $this->db->getAllTeams();
+
+        $listTeamProjects = [];
+        foreach ($teams as $idObject){
+            foreach ($idObject as $id){
+                array_push($listTeamProjects, $this->db->getTeamProjectsId($id));
+            }
+        }
+
 
         $project = $this->api->getAllProjects();
         $item = [];
@@ -43,7 +58,10 @@ class AdminPageController extends AbstractController {
         $content = $this->twig->render("AdminPage/admin.html.twig",
             [
                 "teams" => $teams,
-                "projects" => $project
+                "projects" => $project,
+                "titles" => $titles,
+                'listTeams' => $teams,
+                'projectTeams' => $listTeamProjects
             ]);
         return new Response($content);
     }
@@ -56,10 +74,11 @@ class AdminPageController extends AbstractController {
         return $this->redirectToRoute('app_home_index');
     }
 
-    public function __construct(Environment $twig, DataBaseServices $db, ApiServices $api)
+    public function __construct(Environment $twig, DataBaseServices $db, ApiServices $api, EntityManagerInterface $em)
     {
         $this->twig = $twig;
         $this->db = $db;
         $this->api = $api;
+        $this->em = $em;
     }
 }

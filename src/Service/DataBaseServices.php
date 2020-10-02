@@ -55,6 +55,10 @@ class DataBaseServices
         $this->em->flush();
     }
 
+    public function deleteProjectToTeam(){
+
+    }
+
     public function deleteATeam($id)
     {
         $teams = $this->em->getRepository(Team::class);
